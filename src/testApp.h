@@ -5,6 +5,7 @@
 
 #include "ofxOpenCv.h"
 #include "ofxKinect.h"
+#include "ofxOsc.h"
 
 class testApp : public ofBaseApp
 {
@@ -24,21 +25,31 @@ class testApp : public ofBaseApp
 		void mousePressed(int x, int y, int button);
 		void mouseReleased(int x, int y, int button);
 		void windowResized(int w, int h);
+		void sendHandPositions(ofPoint h[]);
 
 		ofxKinect kinect;
 
 		ofxCvColorImage		colorImg;
-
-		ofxCvGrayscaleImage 	grayImage;
+		ofxCvColorImage		filteredColorImg;
+	
+	ofxCvGrayscaleImage 	grayImage;
+	ofxCvGrayscaleImage 	bodyImage;
+	ofxCvGrayscaleImage 	handImage;
 		ofxCvGrayscaleImage 	grayThresh;
 		ofxCvGrayscaleImage 	grayThreshFar;
 
 		ofxCvContourFinder 	contourFinder;
+	ofxCvBlob			blob;
+	
+	ofxOscSender sender;
 		
 		bool				bThreshWithOpenCV;
+	
+	float meanBodyPix;
 
 		int 				nearThreshold;
 		int					farThreshold;
+		int					closepix;
 
 		int					angle;
 };
